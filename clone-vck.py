@@ -13,8 +13,8 @@ def deleteChaptersAuto(part_id):
     try:
         queryDelete = """DELETE from chapters WHERE part_id = %s""" % part_id
         # Uncomment 2 lines below to execute
-        # cursor.execute(queryDelete) 
-        # db.commit()
+        cursor.execute(queryDelete) 
+        db.commit()
         cursor.close()
         print queryDelete
         print """Chapters from part [ %s ] was deleted""" % part_id
@@ -26,9 +26,9 @@ def copyChapters(part_from, part_to):
     cursor = db.cursor()
     try:
         query = """INSERT INTO chapters (`id`, `name`, `order`, `is_numerated`, `number`, `is_sample`, `pdf_url`, `pdf_images`, `state`, `part_id`)(SELECT NULL, name, `order`, is_numerated, number, is_sample, pdf_url, pdf_images, state, '%s'  FROM chapters WHERE part_id = %s)""" % (part_to,  part_from)
-        # cursor.execute(query)
-        # db.commit()
-        # cursor.close()
+        cursor.execute(query)
+        db.commit()
+        cursor.close()
         print query
         print """Se inserto con exito"""
     except:
